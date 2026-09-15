@@ -1,0 +1,8 @@
+{
+  "name": "werewolf-online",
+  "private": true,
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "postinstall": "npm run build -w packages/shared"
+  }
+}
