@@ -1,0 +1,247 @@
+.rae-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  overflow: hidden;
+  background: radial-gradient(ellipse at center, rgba(12, 12, 16, 0.88) 0%, rgba(3, 3, 4, 0.97) 78%);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.rae-overlay.rae-visible { opacity: 1; }
+.rae-overlay.rae-fading { opacity: 0; transition: opacity 0.3s ease; }
+.rae-overlay.rae-shaking { animation: rae-shake 0.4s ease; }
+@keyframes rae-shake {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-8px, 4px); }
+  40% { transform: translate(7px, -5px); }
+  60% { transform: translate(-5px, 3px); }
+  80% { transform: translate(4px, -3px); }
+}
+
+.rae-stage {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 28px;
+}
+.rae-stage-pair { gap: 46px; }
+
+.rae-figure {
+  position: relative;
+  width: 130px;
+  height: 195px;
+  opacity: 0;
+  transform: scale(0.85) translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.rae-figure.rae-figure-in { opacity: 1; transform: scale(1) translateY(0); }
+
+.rae-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.55));
+}
+
+.rae-name {
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #f0e6cf;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+  white-space: nowrap;
+  max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.rae-name.rae-name-in { opacity: 1; }
+
+.rae-result {
+  margin-top: 18px;
+  font-size: 0.9rem;
+  color: #cbb9e0;
+  text-align: center;
+  max-width: 85vw;
+  padding: 0 16px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.rae-result.rae-result-in { opacity: 1; transform: translateY(0); }
+
+/* Generic emoji badge (guard / seer / fox / wild-child) */
+.rae-badge {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  transform: translate(-50%, -50%) scale(0) rotate(-25deg);
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+}
+.rae-badge.rae-badge-in {
+  transform: translate(-50%, -50%) scale(1.1) rotate(0deg);
+  opacity: 1;
+}
+.rae-emoji-static {
+  position: relative;
+  font-size: 56px;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+}
+.rae-glow {
+  position: absolute;
+  inset: -26px;
+  border-radius: 50%;
+  animation: rae-glow-pulse 1.4s ease-in-out infinite;
+}
+.rae-glow-blue { background: radial-gradient(circle, rgba(120, 190, 255, 0.45) 0%, rgba(120, 190, 255, 0) 70%); }
+.rae-glow-purple { background: radial-gradient(circle, rgba(190, 130, 255, 0.45) 0%, rgba(190, 130, 255, 0) 70%); }
+.rae-glow-orange { background: radial-gradient(circle, rgba(255, 170, 90, 0.45) 0%, rgba(255, 170, 90, 0) 70%); }
+.rae-glow-gold { background: radial-gradient(circle, rgba(255, 224, 150, 0.5) 0%, rgba(255, 224, 150, 0) 70%); }
+@keyframes rae-glow-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+/* Witch poison */
+.rae-emoji {
+  position: absolute;
+  font-size: 30px;
+  opacity: 0;
+  pointer-events: none;
+}
+.rae-vial {
+  left: 6%;
+  bottom: 4%;
+  filter: drop-shadow(0 0 6px rgba(120, 220, 120, 0.6));
+}
+.rae-vial[data-active='true'] { animation: rae-vial-throw 0.55s cubic-bezier(0.3, 0.4, 0.2, 1) forwards; }
+@keyframes rae-vial-throw {
+  0% { left: 6%; bottom: 4%; opacity: 0; transform: rotate(0deg) scale(0.8); }
+  12% { opacity: 1; }
+  85% { left: 46%; bottom: 58%; opacity: 1; transform: rotate(340deg) scale(1); }
+  100% { left: 48%; bottom: 60%; opacity: 0; transform: rotate(360deg) scale(0.9); }
+}
+.rae-poison-burst {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  width: 10px;
+  height: 10px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(140, 230, 120, 0.9) 0%, rgba(120, 200, 90, 0.4) 45%, transparent 75%);
+  opacity: 0;
+  pointer-events: none;
+}
+.rae-poison-burst[data-active='true'] {
+  animation: rae-poison-burst-kf 0.7s ease-out forwards;
+  animation-delay: 0.45s;
+}
+@keyframes rae-poison-burst-kf {
+  0% { width: 10px; height: 10px; opacity: 0; }
+  30% { opacity: 0.9; }
+  100% { width: 130px; height: 130px; opacity: 0; }
+}
+
+/* White Wolf — icy tint over the shared claw effect */
+.rae-white-tint {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 45%, rgba(180, 220, 255, 0.35) 0%, transparent 65%);
+  opacity: 0;
+  pointer-events: none;
+}
+.rae-white-tint[data-active='true'] { animation: rae-white-flash 0.5s ease; }
+@keyframes rae-white-flash {
+  0% { opacity: 0; }
+  30% { opacity: 0.9; }
+  100% { opacity: 0; }
+}
+
+/* Cult Leader — hypnotic swirl */
+.rae-hypno {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  transform: translate(-50%, -50%) scale(0);
+  font-size: 60px;
+  opacity: 0;
+  filter: drop-shadow(0 0 12px rgba(190, 130, 255, 0.8));
+  transition: transform 0.4s ease, opacity 0.3s ease;
+}
+.rae-hypno.rae-hypno-in {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  animation: rae-hypno-spin 1.6s linear infinite;
+}
+@keyframes rae-hypno-spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Hunter — aiming reticle */
+.rae-reticle {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  transform: translate(-50%, -50%) scale(2.4);
+  font-size: 54px;
+  opacity: 0;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.25s ease;
+}
+.rae-reticle.rae-reticle-in {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Cupid — heart linking two stick-men */
+.rae-heart {
+  position: absolute;
+  bottom: 90px;
+  left: 50%;
+  transform: translate(-50%, 0) scale(0);
+  font-size: 40px;
+  opacity: 0;
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+  filter: drop-shadow(0 0 10px rgba(255, 120, 160, 0.8));
+}
+.rae-heart[data-active='true'] {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1.15);
+}
+
+/* Flutist — floating notes between two stick-men */
+.rae-notes {
+  position: absolute;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  font-size: 26px;
+  opacity: 0;
+  pointer-events: none;
+}
+.rae-notes[data-active='true'] { opacity: 1; }
+.rae-notes span { display: inline-block; animation: rae-note-float 1.4s ease-in-out infinite; }
+.rae-notes span:nth-child(2) { animation-delay: 0.4s; }
+@keyframes rae-note-float {
+  0% { transform: translateY(6px); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(-18px); opacity: 0; }
+}

@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: werewolf-export-server
+    runtime: node
+    plan: free
+    rootDir: .
+    buildCommand: npm install && npm run build -w packages/shared && npm run build -w packages/server
+    startCommand: node packages/server/dist/index.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      # Set this to your Vercel client URL after the first deploy, e.g.
+      # https://werewolf-export-client.vercel.app — restricts Socket.IO's
+      # CORS to just your frontend instead of the default "*".
+      - key: CLIENT_ORIGIN
+        sync: false

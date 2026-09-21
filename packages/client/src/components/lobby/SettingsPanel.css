@@ -1,0 +1,237 @@
+.settings-overlay * {
+  box-sizing: border-box;
+}
+
+.settings-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  background: rgba(5, 8, 15, 0.7);
+}
+
+.st-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.st-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Panel sized responsively, keeping the artwork's native aspect ratio */
+.st-panel-wrap {
+  position: relative;
+  height: min(62vh, 680px);
+  width: auto;
+  aspect-ratio: 1616 / 973;
+  max-width: 94vw;
+  background-image: url('/ui/settings/settings_panel.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Close (X) button, overlapping the top-right corner like the reference layout */
+.close-btn {
+  position: absolute;
+  top: -4%;
+  right: -4%;
+  width: min(7.9vh, 87px);
+  aspect-ratio: 1 / 1;
+  background-image: url('/ui/settings/exit_button.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Transparent full-row click zones over rows that already have a ">" arrow drawn in the art */
+.row-click {
+  position: absolute;
+  left: 17.57%;
+  width: 62.44%;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.avatar-row {
+  top: 13.67%;
+  height: 10.64%;
+}
+
+.rename-row {
+  top: 24.31%;
+  height: 10.63%;
+}
+
+/* Slider rows */
+.slider-row {
+  position: absolute;
+  left: 47.65%;
+  width: 32.4%;
+  display: flex;
+  align-items: center;
+  gap: 3%;
+}
+
+.music-row {
+  top: 37.10%;
+  height: 10.76%;
+}
+
+.sfx-row {
+  top: 47.86%;
+  height: 10.78%;
+}
+
+.mic-row {
+  top: 58.64%;
+  height: 10.76%;
+}
+
+.st-slider {
+  flex: 1 1 auto;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(to right, #e0b04d var(--fill, 50%), rgba(224,176,77,0.25) var(--fill, 50%));
+  outline: none;
+  cursor: pointer;
+}
+
+.st-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: min(2vh, 22px);
+  height: min(2vh, 22px);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fdeec0, #e0b04d 60%, #a97a24 100%);
+  border: 1px solid #7a5518;
+  cursor: pointer;
+}
+
+.st-slider::-moz-range-thumb {
+  width: min(2vh, 22px);
+  height: min(2vh, 22px);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fdeec0, #e0b04d 60%, #a97a24 100%);
+  border: 1px solid #7a5518;
+  cursor: pointer;
+}
+
+.st-slider::-moz-range-progress {
+  background: #e0b04d;
+  height: 4px;
+  border-radius: 2px;
+}
+
+.slider-value {
+  flex: 0 0 auto;
+  min-width: 3.2em;
+  text-align: right;
+  color: #f0dcae;
+  font-weight: 700;
+  font-size: clamp(11px, 1.5vh, 18px);
+}
+
+/* Vibrate toggle row */
+.toggle-row {
+  position: absolute;
+  left: 47.65%;
+  width: 32.4%;
+  top: 69.40%;
+  height: 10.76%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 3%;
+}
+
+.toggle-state {
+  color: #f0dcae;
+  font-weight: 700;
+  font-size: clamp(11px, 1.5vh, 18px);
+  letter-spacing: 0.05em;
+}
+
+.st-switch {
+  position: relative;
+  display: inline-block;
+  width: min(6vh, 66px);
+  height: min(3.1vh, 34px);
+}
+
+.st-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider-toggle {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: rgba(60, 45, 30, 0.85);
+  border: 1px solid rgba(224, 176, 77, 0.7);
+  border-radius: 34px;
+  transition: 0.2s;
+}
+
+.slider-toggle::before {
+  content: "";
+  position: absolute;
+  height: 78%;
+  aspect-ratio: 1 / 1;
+  left: 4%;
+  top: 11%;
+  background: radial-gradient(circle at 35% 30%, #fdeec0, #e0b04d 60%, #a97a24 100%);
+  border-radius: 50%;
+  transition: 0.2s;
+}
+
+.st-switch input:checked + .slider-toggle::before {
+  transform: translateX(155%);
+}
+
+/* Logout button, placed inside the panel's own empty bottom space */
+.logout-btn {
+  position: absolute;
+  left: 17.57%;
+  top: 83.4%;
+  width: 62.44%;
+  aspect-ratio: 1277 / 134;
+  background-image: url('/ui/settings/logout_button.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.logout-btn:active,
+.close-btn:active {
+  filter: brightness(0.9);
+}
+
+@media (max-width: 700px) {
+  .st-panel-wrap {
+    height: min(56vh, 560px);
+  }
+}
