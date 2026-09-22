@@ -65,8 +65,8 @@ function clamp(val: number, min: number, max: number) {
 
 export function CreateRoomPage({ nickname, avatarUrl, onRoomCreated, onCancel, onOpenCardGallery }: CreateRoomPageProps) {
   const dispatch = useGameDispatch();
-  const [playerCount, setPlayerCount] = useState<number | null>(null);
-  const [wolfCount, setWolfCount] = useState<number | null>(null);
+  const [playerCount, setPlayerCount] = useState<number | null>(8);
+  const [wolfCount, setWolfCount] = useState<number | null>(1);
   const [selectedRoles, setSelectedRoles] = useState<Set<string>>(new Set());
   const [busy, setBusy] = useState(false);
   const [capError, setCapError] = useState(false);
@@ -84,9 +84,11 @@ export function CreateRoomPage({ nickname, avatarUrl, onRoomCreated, onCancel, o
 
   function bumpWolf(delta: number) {
     setWolfCount((v) => {
-      const cur = v ?? 0;
+      const cur = v ?? 1;
       const next = cur + delta;
-      if (next < 0) return v;
+      // A Ma Sói game with 0 werewolves isn't a valid game — never let the
+      // host drop below 1.
+      if (next < 1) return v;
       if (delta > 0 && playerCount !== null && next + selectedSlots > playerCount) {
         flashCapError();
         return v;
@@ -118,9 +120,13 @@ export function CreateRoomPage({ nickname, avatarUrl, onRoomCreated, onCancel, o
       flashCapError();
       return;
     }
+    if ((wolfCount ?? 0) < 1) {
+      flashCapError();
+      return;
+    }
     setBusy(true);
 
-    const roleCounts: Partial<Record<RoleName, number>> = { [RoleName.WEREWOLF]: clamp(wolfCount ?? 0, 0, 40) };
+    const roleCounts: Partial<Record<RoleName, number>> = { [RoleName.WEREWOLF]: clamp(wolfCount ?? 1, 1, 40) };
     for (const name of selectedRoles) {
       const mapped = ROLE_NAME_MAP[name];
       if (mapped) roleCounts[mapped] = ROLE_SLOT_COST[name] ?? 1;
@@ -177,7 +183,7 @@ export function CreateRoomPage({ nickname, avatarUrl, onRoomCreated, onCancel, o
             <input
               type="number"
               className="input-field"
-              min={0}
+              min={1}
               value={wolfCount ?? ''}
               placeholder="-"
               readOnly

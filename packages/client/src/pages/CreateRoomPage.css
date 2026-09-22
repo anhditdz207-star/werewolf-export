@@ -243,6 +243,12 @@
 }
 
 @media (max-width: 700px) {
+  .cr-stage {
+    background-color: #05070d;
+    background-size: contain;
+    background-position: top center;
+    background-repeat: no-repeat;
+  }
   .cr-panel-wrap {
     height: min(50vh, 520px);
   }
