@@ -249,11 +249,35 @@
     background-position: top center;
     background-repeat: no-repeat;
   }
+  .cr-content {
+    top: 60%;
+  }
   .cr-panel-wrap {
-    height: min(50vh, 520px);
+    height: min(56vh, 560px);
   }
   .create-btn {
-    width: min(30vw, 210px);
+    margin-top: 1.6vh;
+    width: min(30vw, 190px);
+  }
+  .cr-switch {
+    width: 32px;
+    height: 18px;
+  }
+  .cr-slider::before {
+    height: 13px;
+    width: 13px;
+  }
+  .cr-switch input:checked + .cr-slider::before {
+    transform: translateX(14px);
+  }
+  .role-row {
+    padding: 2px 2px;
+  }
+  .role-name {
+    font-size: 12px;
+  }
+  .role-list {
+    row-gap: 0.9vh;
   }
 }
 
