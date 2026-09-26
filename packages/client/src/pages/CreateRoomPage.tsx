@@ -142,12 +142,7 @@ export function CreateRoomPage({ nickname, avatarUrl, onRoomCreated, onCancel, o
 
   return (
     <div className="cr-stage">
-      <button
-        type="button"
-        onClick={onCancel}
-        style={{ position: 'fixed', top: '2vh', left: '2vw', zIndex: 5 }}
-        className="cr-back-link"
-      >
+      <button type="button" onClick={onCancel} className="cr-back-link">
         ‹ Quay lại
       </button>
 

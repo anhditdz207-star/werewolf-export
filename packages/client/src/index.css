@@ -37,3 +37,31 @@
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+/*
+ * Force-landscape for the WHOLE app on phones, starting from the intro
+ * screen — most of the game's artwork (panels, backgrounds) is drawn
+ * wide, and reads far better sideways than squeezed into a tall narrow
+ * screen. Real orientation-lock isn't available to a regular web page
+ * (iOS Safari never allows it at all; Android Chrome only inside
+ * fullscreen), so the standard workaround is rotating the whole app 90°
+ * with CSS: it renders landscape regardless of how the phone is
+ * physically held. Holding the phone upright means tilting your head (or
+ * just turning the phone sideways, at which point this media query
+ * simply stops matching and everything sits upright with no rotation).
+ *
+ * Applied once here, at the root, rather than per-page — every screen
+ * (intro, lobby, create/join room, in-room, etc.) inherits it for free.
+ */
+@media (max-width: 820px) and (orientation: portrait) {
+  #root {
+    position: fixed;
+    top: 100%;
+    left: 0;
+    width: 100vh;
+    height: 100vw;
+    transform-origin: left top;
+    transform: rotate(-90deg);
+    overflow: hidden;
+  }
+}
